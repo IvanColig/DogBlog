@@ -1,0 +1,58 @@
+@page
+@model DogBlog.Pages.Posts.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Post</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Post.PostId" />
+            <div class="form-group">
+                <label asp-for="Post.Title" class="control-label"></label>
+                <input asp-for="Post.Title" class="form-control" />
+                <span asp-validation-for="Post.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post.Content" class="control-label"></label>
+                <input asp-for="Post.Content" class="form-control" />
+                <span asp-validation-for="Post.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Current Image:</label>
+                @if (!string.IsNullOrEmpty(Model.Post.ImagePath))
+                {
+                    <div>
+                        <img src="@Model.Post.ImagePath" alt="Post Image" style="max-width: 80%; height: auto;" />
+                    </div>
+                }
+                else
+                {
+                    <p>No image available</p>
+                }
+            </div>
+            <div class="form-group">
+                <label>New Image:</label>
+                <input asp-for="Post.Image" type="file" class="form-control" />
+                <span asp-validation-for="Post.Image" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index" asp-route-blogId="@Model.Post.BlogId">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

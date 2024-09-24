@@ -1,0 +1,44 @@
+@page
+@model DogBlog.Pages_Blogs.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Blog</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Blog.Title)
+        </dt>
+        <dd class="col-sm-10">
+            <strong>@Html.DisplayFor(model => model.Blog.Title)</strong>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Blog.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Blog.Description)
+        </dd>
+        <dt class="col-sm-2">
+            Image
+        </dt>
+        <dd class="col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.Blog.ImagePath))
+            {
+                <img src="@Model.Blog.ImagePath" alt="Blog Image" style="max-width:20%; height:auto;" />
+            }
+            else
+            {
+                <p>No image available</p>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-blogId="@Model.Blog.BlogId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

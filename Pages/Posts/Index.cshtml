@@ -1,0 +1,43 @@
+@page
+@model DogBlog.Pages.Posts.IndexModel
+@{
+    ViewData["Title"] = "Posts";
+}
+
+@if (Model.Blog != null)
+{
+    <h1>@Model.Blog.Title</h1>
+    <p>@Model.Blog.Description</p>
+    <p>
+        <a class="btn btn-primary" asp-page="./Create" asp-route-blogId="@Model.Blog.BlogId">Create New</a>    
+    </p>
+
+    @if (Model.Post != null && Model.Post.Count > 0)
+    {
+        <div class="card-container">
+            @foreach (var post in Model.Post)
+            {
+                <div class="card custom-card mb-4">
+                    <img class="card-img-top" src="@post.ImagePath" alt="Post Image" style="height: 10rem; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@post.Title</h5>
+                        <p class="card-text">@post.Content</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Posted on @post.Date.ToString("MM/dd/yyyy")</small>
+                        <a class="btn btn-primary" asp-page="./Edit" asp-route-postId="@post.PostId">Edit</a>
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-postId="@post.PostId">Delete</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No posts available for this blog. <a asp-page="/Posts/Create" asp-route-blogId="@Model.Blog.BlogId">Create!</a></p>    
+    }
+}
+else
+{
+    <p>Blog not found.</p>
+}

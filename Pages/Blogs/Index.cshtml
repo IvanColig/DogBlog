@@ -1,0 +1,33 @@
+@page
+@model DogBlog.Pages.Blogs.IndexModel
+@{
+    ViewData["Title"] = "Blogs";
+}
+
+<h1 class="mb-4">Blogs</h1>
+
+<p>
+    <a class="btn btn-primary" asp-page="./Create">Create New</a>
+</p>
+
+<div class="row">
+    @foreach (var item in Model.Blogs)
+    {
+        <div class="col-md-4 mb-4">
+            <a class="text-decoration-none text-dark" asp-page="/Posts/Index" asp-route-blogId="@item.BlogId">
+                <div class="card">
+                    <img src="@item.ImagePath" class="card-img-top" alt="Blog Image" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@item.Description</p>
+                    </div>
+                </div>
+            </a>
+            <div class="mt-2">
+                <a class="btn btn-primary" asp-page="./Details" asp-route-blogId="@item.BlogId">Details</a>
+                <a class="btn btn-secondary" asp-page="./Edit" asp-route-blogId="@item.BlogId">Edit</a>
+                <a class="btn btn-danger" asp-page="./Delete" asp-route-blogId="@item.BlogId">Delete</a>
+            </div>
+        </div>
+    }
+</div>
